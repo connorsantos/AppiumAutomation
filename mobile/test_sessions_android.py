@@ -5,16 +5,16 @@ from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.interaction import POINTER_TOUCH
 from selenium.webdriver.common.actions.mouse_button import MouseButton
 from views.home_view import HomeView
+from views.accessability_view import AccessabilityView
 
 def test_uncheck_box(driver):
     home = HomeView(driver)
     home.nav_to_accessability()
+    accessAbilityView = AccessabilityView(driver)
+    accessAbilityView.nav_to_access_node_query()
 
     wait = WebDriverWait(driver, 10)
-    wait.until(EC.presence_of_element_located(
-        (AppiumBy.XPATH, '//android.widget.TextView[@text="Accessibility"]'))).click()
-    wait.until(EC.presence_of_element_located(
-        (AppiumBy.XPATH, '//android.widget.TextView[@text="Accessibility Node Querying"]'))).click()
+
     wait.until(EC.presence_of_element_located(
         (AppiumBy.XPATH, '(//android.widget.CheckBox[@resource-id="com.example.android.apis:id/tasklist_finished"])[1]'))).click()
     box = driver.find_element(AppiumBy.XPATH, 
