@@ -1,28 +1,10 @@
-from appium.webdriver.common.appiumby import AppiumBy
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.actions.action_builder import ActionBuilder
-from selenium.webdriver.common.actions.interaction import POINTER_TOUCH
-from selenium.webdriver.common.actions.mouse_button import MouseButton
-from views.home_view import HomeView
-from views.accessability_view import AccessabilityView
+def test_uncheck_box(home):
+    accessAbilityView = home.nav_to_accessability()
 
-def test_uncheck_box(driver):
-    home = HomeView(driver)
-    home.nav_to_accessability()
-    accessAbilityView = AccessabilityView(driver)
-    accessAbilityView.nav_to_access_node_query()
+    nodeQueryView = accessAbilityView.nav_to_access_node_query()
+    nodeQueryView.check_trash_box()
+    trash_box = nodeQueryView.get_trash_box_item()
+    print(trash_box)
+    assert trash_box is True
 
-    wait = WebDriverWait(driver, 10)
-
-    wait.until(EC.presence_of_element_located(
-        (AppiumBy.XPATH, '(//android.widget.CheckBox[@resource-id="com.example.android.apis:id/tasklist_finished"])[1]'))).click()
-    box = driver.find_element(AppiumBy.XPATH, 
-                    '(//android.widget.CheckBox[@resource-id="com.example.android.apis:id/tasklist_finished"])[1]').get_attribute('checked')
-    print(box)
-    assert box is not True
-    #wait.until(EC.presence_of_element_located(
-    #    (AppiumBy.ACCESSIBILITY_ID, 'Login Screen')))
-    #driver.find_element(AppiumBy.CLASS_NAME, 'android.widget.TextView')
-    #driver.find_element(AppiumBy.XPATH, '//android.widget.TextView[@resource-id="android:id/text1" and @text="Accessibility"]')
 

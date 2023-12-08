@@ -1,14 +1,12 @@
 from appium.webdriver.common.appiumby import AppiumBy
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
-class AccessabilityView(object):
+from views.base_view import BaseView
+from views.node_query_view import NodeQueryView
+
+class AccessabilityView(BaseView):
     NODE_QUERYING = (AppiumBy.XPATH, '//android.widget.TextView[@text="Accessibility Node Querying"]')
 
-    def __init__(self, driver):
-         self.driver=driver
-
     def nav_to_access_node_query(self):
-        wait = WebDriverWait(self.driver, 10)
-        wait.until(EC.presence_of_element_located((self.NODE_QUERYING))).click()
+        self.wait_for(self.NODE_QUERYING).click()
+        return NodeQueryView(self.driver)
          
