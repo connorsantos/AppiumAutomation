@@ -11,4 +11,11 @@ class BaseView(object):
         return self.wait.until(EC.presence_of_element_located(locator))
 
     def find(self, locator):
+        self.wait_for(locator)
         return self.driver.find_element(*locator)
+
+    def getattr(self, locator, attr):
+        return self.find(locator).get_attribute(attr)
+
+    def clickItem(self, locator):
+        self.find(locator).click()
